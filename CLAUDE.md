@@ -20,9 +20,12 @@ BigQuery (`claroinsurance-dataplatform`). Se usa junto al MCP de BigQuery
    pida explícitamente o de forma insistente. Si el usuario necesita escribir datos, indícale que
    debe hacerlo por su cuenta o pedirle a alguien con permisos de escritura que lo haga — no lo
    hagas tú en su nombre.
-4. **Si construyes una consulta nueva que el usuario confirma como correcta**, ofrece
-   guardarla en `queries/<dominio>/` siguiendo la plantilla en `queries/_template/query.md`,
-   para que quede disponible como referencia verificada en el futuro.
+4. **Si construyes una consulta nueva que el usuario confirma como correcta**, y tienes acceso
+   real a este filesystem (Claude Code), ofrece guardarla en `queries/<dominio>/` siguiendo la
+   plantilla en `queries/_template/query.md`, para que quede disponible como referencia
+   verificada en el futuro. Si no tienes filesystem real (por ejemplo, un Project de claude.ai
+   sin herramientas de archivos), no ofrezcas guardarla — indícale al usuario que la comparta
+   con el mantenedor del repositorio.
 5. Los nombres de líneas de negocio (ACA, Medicare, Life, etc.) y estados de póliza están
    documentados en `context/glossary.md`. Úsalos para interpretar peticiones ambiguas del
    usuario (p. ej. "miembros activos" → ver regla de `Status__c` en `business-rules.md`).
@@ -36,12 +39,22 @@ BigQuery (`claroinsurance-dataplatform`). Se usa junto al MCP de BigQuery
 - Usa todo el contexto técnico de este repo (`schema/`, `queries/`, `context/`) **para
   construir y ejecutar** la consulta correcta — pero **no lo expongas en la respuesta**.
 - Responde en lenguaje de negocio: la cifra o el hallazgo, y si aporta, una frase breve de
-  contexto (ej. "miembros activos de ACA vigentes a fin de mes"). No menciones nombres de
-  tabla, columnas, alias, joins, ni rutas de archivo (`BOB_TD`, `dim_cslb`,
-  `queries/aca/...`, etc.) en la respuesta por defecto.
+  contexto (ej. "miembros activos de ACA vigentes a fin de mes").
+- **Por defecto, la respuesta debe ser 100% texto de negocio, sin ningún tecnicismo.** Esto
+  incluye, sin limitarse a:
+  - Nombres de tabla, columna, alias, joins, o rutas de archivo (`BOB_TD`, `dim_cslb`,
+    `queries/aca/...`, etc.).
+  - Fragmentos de SQL/DAX, aunque sean cortos (nada de `WHERE`, `CASE WHEN`, `COALESCE`, etc.).
+  - **Notación cruda de valores, flags o condiciones** (ej. `VAL=1`, `Status__c IN (...)`,
+    `Validador_Global_F=0`, códigos internos como `'NR'`). Tradúcelo siempre a su significado
+    de negocio (ej. en vez de "VAL=1" di "agentes que sí tuvieron producción").
+  - Nombres internos de medidas o métricas del modelo (`Rows_BOB`, `Active Agents TD`) — usa
+    el nombre de negocio de la métrica, no el identificador técnico.
+- Antes de enviar la respuesta, revísala mentalmente: si contiene algo que solo alguien que
+  conoce el esquema entendería, reescríbelo en español llano.
 - Muestra el detalle técnico (SQL usado, tablas, columnas, archivo de `queries/` de
-  referencia) únicamente si el usuario lo pide explícitamente — por ejemplo "¿cómo lo
-  calculaste?", "muéstrame el SQL", "¿qué tabla usaste?".
+  referencia, valores de flags) únicamente si el usuario lo pide explícitamente — por ejemplo
+  "¿cómo lo calculaste?", "muéstrame el SQL", "¿qué tabla usaste?".
 
 ## Estructura del repositorio
 
