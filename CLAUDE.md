@@ -14,6 +14,7 @@ BigQuery (`claroinsurance-dataplatform`). Se usa junto al MCP de BigQuery
 2. **Si necesitas una tabla que no conoces**, revisa `schema/` primero. Si no está documentada,
    usa `get_table_info` / `get_dataset_info` del MCP de BigQuery para inspeccionarla, y
    considera añadir un archivo nuevo en `schema/` con lo que aprendiste (ver plantilla).
+   Actualiza también `context/semantic-model.md` con la(s) relación(es) nueva(s).
 3. **Usa siempre `execute_sql_readonly` contra BigQuery.** El usuario que interactúa con este
    proyecto no tiene permisos de escritura: nunca uses `execute_sql` (ni cualquier operación de
    DDL/DML — `INSERT`, `UPDATE`, `DELETE`, `CREATE`, `DROP`, `MERGE`, etc.), aunque el usuario lo
@@ -59,7 +60,8 @@ BigQuery (`claroinsurance-dataplatform`). Se usa junto al MCP de BigQuery
 ## Estructura del repositorio
 
 - `context/` — glosario de negocio, reglas de filtrado estándar, líneas de negocio,
-  catálogo de segmentadores del dashboard (`dashboard-filters.md`).
+  catálogo de segmentadores del dashboard (`dashboard-filters.md`), mapa consolidado de
+  relaciones entre todas las tablas (`semantic-model.md`).
 - `schema/` — una ficha por tabla/vista relevante: columnas clave, joins típicos, gotchas.
 - `queries/<dominio>/` — consultas SQL **verificadas** por humanos, con metadata y notas.
   `<dominio>` = línea de negocio o área (aca, medicare, life, commissions, retention...).
