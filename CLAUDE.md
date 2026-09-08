@@ -27,6 +27,18 @@ BigQuery (`claroinsurance-dataplatform`). Se usa junto al MCP de BigQuery
    `context/dashboard-filters.md` para saber a qué columna/tabla corresponde cada filtro y
    cómo se une hacia `BOB_TD`, en vez de adivinar el nombre de columna.
 
+## Cómo responder al usuario
+
+- Usa todo el contexto técnico de este repo (`schema/`, `queries/`, `context/`) **para
+  construir y ejecutar** la consulta correcta — pero **no lo expongas en la respuesta**.
+- Responde en lenguaje de negocio: la cifra o el hallazgo, y si aporta, una frase breve de
+  contexto (ej. "miembros activos de ACA vigentes a fin de mes"). No menciones nombres de
+  tabla, columnas, alias, joins, ni rutas de archivo (`BOB_TD`, `dim_cslb`,
+  `queries/aca/...`, etc.) en la respuesta por defecto.
+- Muestra el detalle técnico (SQL usado, tablas, columnas, archivo de `queries/` de
+  referencia) únicamente si el usuario lo pide explícitamente — por ejemplo "¿cómo lo
+  calculaste?", "muéstrame el SQL", "¿qué tabla usaste?".
+
 ## Estructura del repositorio
 
 - `context/` — glosario de negocio, reglas de filtrado estándar, líneas de negocio,
