@@ -20,7 +20,7 @@ sus atributos de vigencia, estado y línea de negocio.
 |---|---|
 | `Policy_Number__c` | Número de póliza |
 | `Members__C` | Cantidad de miembros cubiertos por la póliza |
-| `Annual_Premium__c` | Prima anual de la póliza. Usada en las métricas de `queries/life/` y `queries/supplementary/` |
+| `Annual_Premium__c` | Prima anual de la póliza. Usada en las métricas de `queries/book_of_business/life/` y `queries/book_of_business/supplementary/` |
 | `Status__c` | Estado de la póliza (`NR`, `Terminated`, otros — ver `context/glossary.md`) |
 | `Val_BOB_TD` | 1 = registro válido para reporting (ver `context/business-rules.md` regla 1) |
 | `RecordTypeId` | Tipo de registro de póliza (ver `context/business-rules.md` regla 6) |
@@ -45,4 +45,4 @@ sus atributos de vigencia, estado y línea de negocio.
 - **`Book_of_Business` (dashboard) vs `BOB_TD`**: el dashboard referencia la tabla de
   hechos como `Book_of_Business`, con una columna `Val.BOB_H`. Pendiente confirmar si es la
   misma tabla que `BOB_TD` (¿alias/vista, o tabla distinta?) y si `Val_BOB_H` equivale a
-  `Val_BOB_TD` antes de asumirlo — ver `context/dashboard-filters.md`.
+  `Val_BOB_TD` antes de asumirlo — ver `context/filters/producers-dashboard-filters.md`.

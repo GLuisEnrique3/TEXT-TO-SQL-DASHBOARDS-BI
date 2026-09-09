@@ -1,11 +1,14 @@
 ---
-name: dashboard-filters
-description: Catálogo de segmentadores (slicers) del dashboard, mapeados a columna/tabla y a su cadena de join hacia Book_of_Business
+name: producers-dashboard-filters
+description: Catálogo de segmentadores (slicers) del dashboard Producers.pbix, mapeados a columna/tabla y a su cadena de join hacia Book_of_Business
 metadata:
   type: reference
 ---
 
-# Segmentadores del Dashboard
+# Segmentadores del Dashboard — Producers.pbix
+
+> Este archivo documenta específicamente el dashboard **Producers.pbix**. Para BOB
+> History.pbix ver `context/filters/bob-history-dashboard-filters.md`.
 
 Estos son los filtros/segmentadores que el usuario aplica interactivamente en el dashboard.
 No son consultas nuevas: son **parámetros** que se agregan al `WHERE` de cualquier consulta

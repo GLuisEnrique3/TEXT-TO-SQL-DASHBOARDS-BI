@@ -21,7 +21,7 @@ Responde: "¿cuántos miembros y pólizas de Medicare están en un estado de rie
 pendiente o atrasado), desglosado por ese estado?" A diferencia de
 `members-policies-medicare.md`, **no** excluye `NR`/`Terminated` — en su lugar filtra
 explícitamente a solo los estados de riesgo. Equivalente a
-`queries/aca/members-policies-aca-by-risk-policies.md` pero para Medicare.
+`queries/book_of_business/aca/members-policies-aca-by-risk-policies.md` pero para Medicare.
 
 ## SQL
 

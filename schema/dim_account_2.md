@@ -21,7 +21,7 @@ Dimensión de cuentas (agencias). Se llega a ella desde `contact.AccountId`.
 | `Name_Agencies` | Nombre de la agencia. Contiene una cuenta de prueba `'Agency Test'` que
   debe excluirse siempre de reportes de negocio real (ver `context/business-rules.md`). |
 | `Subagencia_Name` | Nombre de la subagencia. Usado para desglosar métricas por subagencia (ver `queries/agents/agents-with-active-contracts-and-production-by-subagencies.md`) |
-| `Agent_Specialist__c` | Especialista/agente asignado a la cuenta. Usado como segmentador en el dashboard (ver `context/dashboard-filters.md`) |
+| `Agent_Specialist__c` | Especialista/agente asignado a la cuenta. Usado como segmentador en el dashboard (ver `context/filters/producers-dashboard-filters.md`) |
 
 ## Gotchas / notas
 

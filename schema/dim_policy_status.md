@@ -27,7 +27,7 @@ que aparece en `BOB_TD.Status__c`.
 
 - **`Status` vs `Status_Category`**: el dashboard usa `Status_Category` como segmentador en
   Overview/Paid Members, pero `Status` en Producers — y todas las consultas verificadas de
-  `queries/*/*-by-policy-status.md` usan `Status`. Ver `context/dashboard-filters.md` para
+  `queries/*/*-by-policy-status.md` usan `Status`. Ver `context/filters/producers-dashboard-filters.md` para
   el detalle; pendiente decidir cuál es el estándar para reportes nuevos.
 
 - El join es por valor de texto (`ps.Status = b.Status__c`), no por una clave subrogada —

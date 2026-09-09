@@ -56,3 +56,47 @@ b.RecordTypeId IN ('0121G000000bpwqQAA', '0121G000000bpwvQAA')
 Estos IDs de RecordType corresponden a los tipos de póliza incluidos en reportes de BOB
 estándar (confirmar con el equipo qué representa cada uno antes de reutilizar en otro
 contexto — documentar aquí cuando se confirme).
+
+## 7. Excluir filas centinela con fecha `2000-01-01`
+
+```sql
+-- En BOB_H_TD:
+b.fecha_carga != DATE '2000-01-01'
+-- En Payment_Commission:
+p.Commission_Month__c != DATE '2000-01-01'
+```
+Tanto `BOB_H_TD` como `Payment_Commission` contienen filas con esta fecha centinela/placeholder
+(confirmado inspeccionando el Power Query de `BOB History.pbix`, tabla `Payments` y
+`Book_of_Business`, que las excluyen con un filtro `FiltroFecha2000 = 0`). Excluir siempre en
+consultas nuevas sobre estas dos tablas — no se ha confirmado qué representan esas filas, pero
+el dashboard nunca las incluye en reportes.
+
+## 8. AP de pólizas pagadas (ojo con duplicar la prima por fila de pago)
+
+`Payment_Commission` no tiene columna de prima anual propia — para "AP de pólizas pagadas" hay
+que traerla desde `BOB_TD`/`BOB_H_TD` por `Policy_Number__c`, tomando **la prima del snapshot
+más reciente con valor distinto de cero** (replica la tabla calculada `AP BOB` de
+`BOB History.pbix`).
+
+**Decide con cuidado si deduplicar por póliza o no**, según qué se está replicando:
+- La medida `AP of Paid Policies` del dashboard **sí duplica la prima por cada fila** de
+  `Payment_Commission` que tenga esa póliza en ese mes (no filtra `Main_Payment__c` en su
+  `SUM` externo) — si quieres que tu SQL coincida con el número del dashboard, une la prima a
+  nivel de fila de pago (sin deduplicar), no a nivel de póliza. Ver
+  `queries/payment/ap-of-paid-policies-life-supplementary.md`.
+- Si en cambio quieres una cifra de negocio "correcta" sin ese artefacto de duplicación
+  (prima real de las pólizas pagadas, una vez cada una), deduplica por `Policy_Number__c`
+  antes de sumar.
+
+```sql
+SELECT
+  b.Policy_Number__c,
+  ARRAY_AGG(b.Annual_Premium__c ORDER BY b.fecha_carga DESC LIMIT 1)[OFFSET(0)] AS Annual_Premium__c
+FROM `claro_bi.BOB_H_TD` b
+WHERE b.fecha_carga != DATE '2000-01-01'
+  AND b.Annual_Premium__c != 0
+GROUP BY b.Policy_Number__c
+```
+**No** hagas `SUM(Annual_Premium__c)` uniendo `Payment_Commission` directo a `BOB_TD`/`BOB_H_TD`
+por `Policy_Number__c` sin deduplicar — si la póliza tiene varias filas de pago (varios meses o
+tipos de pago), la prima se multiplicaría. Ver `queries/payment/ap-of-paid-policies-life-supplementary.md`.

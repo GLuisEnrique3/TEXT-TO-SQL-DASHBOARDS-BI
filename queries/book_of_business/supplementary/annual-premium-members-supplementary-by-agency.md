@@ -19,7 +19,7 @@ tags: [premium, members, supplementary, bob, by-agency]
 Misma métrica y mismas reglas de filtrado que `../life/annual-premium-members-life.md`,
 pero **solo para la línea Supplementary** (`o.Line_Of_Business = 'Supplementary'`, en vez
 de `'Life'`) y desglosada por agencia (`a.Name_Agencies`). Equivalente a
-`queries/life/annual-premium-members-life-by-agency.md` pero para Supplementary.
+`queries/book_of_business/life/annual-premium-members-life-by-agency.md` pero para Supplementary.
 
 ## SQL
 

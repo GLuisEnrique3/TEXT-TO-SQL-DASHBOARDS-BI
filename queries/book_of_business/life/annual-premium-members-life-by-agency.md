@@ -43,6 +43,6 @@ GROUP BY a.Name_Agencies
 
 ## Notas / supuestos
 
-- Ver `queries/supplementary/` para el equivalente de esta familia de desgloses aplicado a
+- Ver `queries/book_of_business/supplementary/` para el equivalente de esta familia de desgloses aplicado a
   la línea Supplementary.
 - No filtra `Val_BOB_TD = 1` — mismo comportamiento intencional que la consulta base.

@@ -20,7 +20,7 @@ pero **todavía no se usa en ninguna consulta verificada** de `queries/`.
 | Columna | Descripción |
 |---|---|
 | `Id` | PK, referenciada desde `dim_cslb.Internal_Company_Object__c` |
-| `Name` | Nombre de la compañía. Usado como segmentador en el dashboard (ver `context/dashboard-filters.md`) |
+| `Name` | Nombre de la compañía. Usado como segmentador en el dashboard (ver `context/filters/producers-dashboard-filters.md`) |
 
 ## Joins típicos
 
